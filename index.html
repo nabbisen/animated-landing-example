@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SignerI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
+</head>
+<body>
+    <div id="app">
+        <h3 :class="titleClass">SignerI</h3>
+        <img :class="bgClass" :src="bgSrc">
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.min.js"></script>
+    <script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            titleClass: "",
+            bgSrc: "wake-mono.svg",
+            bgClass: "",
+        },
+    })
+    anime({
+        targets: "#app img",
+        scale: { value: [10, 1], duration: 1200, delay: 0, },
+        complete: function(anim) {
+            app.bgClass = "animated fadeIn";
+            app.bgSrc = "wake.jpg";
+        },
+    })
+    </script>
+</body>
+</html>
