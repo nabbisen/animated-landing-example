@@ -5,46 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SignerI</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" type="text/css" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
 </head>
 <body>
     <style>
-    #app * {
+    #intro * {
         position: absolute;
     }
-    #app h1 {
-        top: 2rem;
-        left: 3rem;
+    #intro h1 h3 {
         z-index: 9999;
     }
-    #app h1.ready {
+    #intro h1 {
+        top: 2rem;
+        left: 3rem;
+    }
+    #intro h3 {
+        top: 4rem;
+        left: 5rem;
+    }
+    #intro h1.ready {
         color: #ffc;
     }
-    #app img {
+    #intro img {
         top: 0;
     }
-    img.bg-mono {
+    #intro img.bg-mono {
         -webkit-animation-duration: 2s;
         animation-duration: 2s;
     }
-    img.bg-mono-cube {
+    #intro img.bg-mono-cube {
         -webkit-animation-duration: 3s;
         animation-duration: 3s;
+        -webkit-animation-delay: 1s;
+        animation-delay: 1s;
     }
-    img.bg {
+    #intro img.bg {
         -webkit-animation-duration: 2s;
         animation-duration: 2s;
+    }
+    #main {
+        top: 2rem;
+        left: 3rem;
+        width: 96vw;
+        height: 98vh;
+        background: url("./wake.jpg") no-repeat;
+    }
+    #main > .nav { 
+        margin-top: 2rem;
+        margin-left: 3rem;<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" type="text/css" >
+        width: 80%;
+        height: 2em;
+    }
+    #main > .nav > ul{
+        width: 100%;
+        display: flex;
+        list-style: none;
     }
     </style>
 
     <div id="app">
-        <h1 v-if="activeIndex === 1" class="animated zoomIn">SignerI</h1>
-        <h1 v-if="activeIndex === 2" class="animated rubberBand">Nice to meet you.</h1>
-        <h1 v-if="activeIndex === 3" class="animated bounce ready">SignerI  Copr.</h1>
-        <img v-if="activeIndex === 0" class="animated zoomIn bg-mono" src="wake-mono.jpg">
-        <img v-if="activeIndex === 1" class="animated fadeOut bg-mono-cube" src="wake-mono-cube.jpg">
-        <img v-if="activeIndex === 2" class="animated fadeIn bg" src="wake.jpg">
-        <img v-if="activeIndex === 3" class="bg" src="wake.jpg">
+        <div v-if="activeIndex !== -1" id="intro">
+            <h1 v-if="activeIndex === 1" class="animated zoomIn">SignerI</h1>
+            <h3 v-if="activeIndex === 2" class="animated swing">Nice to meet you.</h3>
+            <img v-if="activeIndex === 0" class="animated fadeIn bg-mono" src="wake-mono.jpg">
+            <img v-if="activeIndex === 1" class="animated fadeOut bg-mono-cube" src="wake-mono-cube.jpg">
+            <img v-if="activeIndex === 2" class="animated fadeIn bg" src="wake.jpg">
+        </div>
+        <div v-if="activeIndex === -1" id="main">
+            <h1 class="ready">Corp SignerI.</h1>
+            <div class="nav">
+                <ul>
+                    <li>Home</li>
+                    <li>Our Solution</li>
+                    <li>Corporate infomation</li>
+                    <li>Customer Support</li>
+                    <li>Work with us</li>
+                </ul>
+            </div>
+        </div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
@@ -53,7 +92,6 @@
     var app = new Vue({
         el: "#app",
         data: {
-            titleClass: "",
             activeIndex: 0,
         },
     })
@@ -62,9 +100,8 @@
         u("img").on("animationend", function() {
             app.activeIndex = 2
             u("img").on("animationend", function() {
-                app.activeIndex = 3
                 u("img").off("animationend")
-                app.titleClass = "ready"
+                app.activeIndex = -1
             })
         })
     })
