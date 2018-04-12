@@ -8,29 +8,65 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous" />
 </head>
 <body>
+    <style>
+    #app * {
+        position: absolute;
+    }
+    #app h1 {
+        top: 2rem;
+        left: 3rem;
+        z-index: 9999;
+    }
+    #app h1.ready {
+        color: #ffc;
+    }
+    #app img {
+        top: 0;
+    }
+    img.bg-mono {
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+    }
+    img.bg-mono-cube {
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
+    }
+    img.bg {
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+    }
+    </style>
+
     <div id="app">
-        <h3 :class="titleClass">SignerI</h3>
-        <img :class="bgClass" :src="bgSrc">
+        <h1 v-if="activeIndex === 1" class="animated zoomIn">SignerI</h1>
+        <h1 v-if="activeIndex === 2" class="animated rubberBand">Nice to meet you.</h1>
+        <h1 v-if="activeIndex === 3" class="animated bounce ready">SignerI  Copr.</h1>
+        <img v-if="activeIndex === 0" class="animated zoomIn bg-mono" src="wake-mono.jpg">
+        <img v-if="activeIndex === 1" class="animated fadeOut bg-mono-cube" src="wake-mono-cube.jpg">
+        <img v-if="activeIndex === 2" class="animated fadeIn bg" src="wake.jpg">
+        <img v-if="activeIndex === 3" class="bg" src="wake.jpg">
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/umbrellajs@2.10.1/umbrella.min.js"></script>
     <script>
     var app = new Vue({
         el: "#app",
         data: {
             titleClass: "",
-            bgSrc: "wake-mono.svg",
-            bgClass: "",
+            activeIndex: 0,
         },
     })
-    anime({
-        targets: "#app img",
-        scale: { value: [10, 1], duration: 1200, delay: 0, },
-        complete: function(anim) {
-            app.bgClass = "animated fadeIn";
-            app.bgSrc = "wake.jpg";
-        },
+    u("img").on("animationend", function() {
+        app.activeIndex = 1
+        u("img").on("animationend", function() {
+            app.activeIndex = 2
+            u("img").on("animationend", function() {
+                app.activeIndex = 3
+                u("img").off("animationend")
+                app.titleClass = "ready"
+            })
+        })
     })
     </script>
 </body>
