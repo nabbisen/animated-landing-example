@@ -45,15 +45,19 @@
         animation-duration: 2s;
     }
     #main {
-        top: 2rem;
-        left: 3rem;
         width: 96vw;
         height: 98vh;
         background: url("./wake.jpg") no-repeat;
     }
+    #main > h1 {
+        position: absolute;
+        top: 2rem;
+        left: 3rem;
+    }
     #main > .nav { 
-        margin-top: 2rem;
-        margin-left: 3rem;<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" type="text/css" >
+        position: absolute;
+        top: 5rem;
+        left: 3rem;
         width: 80%;
         height: 2em;
     }
@@ -64,7 +68,7 @@
     }
     </style>
 
-    <div id="app">
+    <div id="app" class="container-fluid">
         <div v-if="activeIndex !== -1" id="intro">
             <h1 v-if="activeIndex === 1" class="animated zoomIn">SignerI</h1>
             <h3 v-if="activeIndex === 2" class="animated swing">Nice to meet you.</h3>
